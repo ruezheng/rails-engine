@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchants API' do
-  it "sends a list of merchants" do
+  it "index action sends a list of all merchants" do
     create_list(:merchant, 10)
 
     get '/api/v1/merchants'
@@ -25,5 +25,27 @@ RSpec.describe 'Merchants API' do
       expect(merchant).to_not have_key(:created_at)
       expect(merchant).to_not have_key(:updated_at)
     end
+  end
+
+  it "show action sends one merchant" do
+    merchant1 = create(:merchant)
+
+    get "/api/v1/merchants/#{merchant1.id}"
+
+    response_body = JSON.parse(response.body, symbolize_names: true)
+    merchant = response_body[:data]
+
+    expect(response).to be_successful
+    expect(merchant).to have_key(:id)
+    expect(merchant[:id]).to eq("#{merchant1.id}")
+
+    expect(merchant).to have_key(:type)
+    expect(merchant[:type]).to eq('merchant')
+
+    expect(merchant).to have_key(:attributes)
+    expect(merchant[:attributes][:name]).to eq("#{merchant1.name}")
+
+    expect(merchant).to_not have_key(:created_at)
+    expect(merchant).to_not have_key(:updated_at)
   end
 end
