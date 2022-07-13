@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchant Items API' do
-  it "index action sends a list of items" do
+  it "index action sends a list of a specific merchant's items" do
     merchant1 = create(:merchant)
     create_list(:item, 20, merchant_id: merchant1.id)
 

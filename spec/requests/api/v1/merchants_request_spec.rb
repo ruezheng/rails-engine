@@ -27,7 +27,7 @@ RSpec.describe 'Merchants API' do
     end
   end
 
-  it "show action sends one merchant" do
+  it "show action sends one merchant's data" do
     merchant1 = create(:merchant)
 
     get "/api/v1/merchants/#{merchant1.id}"
