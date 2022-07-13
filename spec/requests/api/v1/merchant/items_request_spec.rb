@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchant Items API' do
-  it "sends a list of items" do
+  it "index action sends a list of items" do
     merchant1 = create(:merchant)
     create_list(:item, 20, merchant_id: merchant1.id)
 
@@ -10,7 +10,6 @@ RSpec.describe 'Merchant Items API' do
     response_body = JSON.parse(response.body, symbolize_names: true)
     items = response_body[:data]
 
-    require "pry"; binding.pry
     expect(response).to be_successful
     expect(items.count).to eq(20)
 
