@@ -123,7 +123,7 @@ RSpec.describe 'Items API' do
     expect(created_item.merchant_id).to eq(item_params[:merchant_id])
   end
 
-  it "updates an item" do
+  it "updates an existing item" do
     merchant = create(:merchant)
     item = create(:item, merchant_id: merchant.id)
 
