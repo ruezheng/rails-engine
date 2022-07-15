@@ -9,3 +9,18 @@ cmd = "pg_restore --verbose --clean --no-acl --no-owner -h localhost -U $(whoami
 puts "Loading PostgreSQL Data dump into local database with command:"
 puts cmd
 system(cmd)
+
+require 'factory_bot_rails'
+
+10.times do
+  FactoryBot.create :merchant
+end
+
+FactoryBot.define do
+  factory :merchant do
+    name { Faker::Company.name }
+    after(:build) do |merchant|
+      5.times { merchant.items << FactoryBot.create(:items) }
+    end
+  end
+end
