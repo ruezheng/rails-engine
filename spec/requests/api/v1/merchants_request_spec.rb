@@ -50,7 +50,7 @@ RSpec.describe 'Merchants API' do
   end
 
   it "returns 404 error if id is invalid" do
-    get '/api/v1/mercahnts/10000'
+    get '/api/v1/merchants/10000'
 
     expect(response.status).to eq(404)
   end
