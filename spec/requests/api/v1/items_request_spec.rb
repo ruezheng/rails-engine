@@ -139,4 +139,16 @@ RSpec.describe 'Items API' do
     expect(item.name).to eq(item_params[:name])
     expect(item.name).to_not eq(previous_name)
   end
+
+  it "deletes an item" do
+    merchant = create(:merchant)
+    item = create(:item, merchant_id: merchant.id)
+
+    expect(Item.count).to eq(1)
+
+    delete "/api/v1/items/#{item.id}"
+
+    expect(response.status).to eq(204)
+    expect(Item.count).to eq(0)
+  end
 end

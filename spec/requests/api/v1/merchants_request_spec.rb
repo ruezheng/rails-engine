@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchants API' do
-  it "index action sends a list of all merchants" do
+  it "index action returns a list of all merchants" do
     create_list(:merchant, 10)
 
     get '/api/v1/merchants'
@@ -27,7 +27,7 @@ RSpec.describe 'Merchants API' do
     end
   end
 
-  it "show action sends one merchant's data" do
+  it "show action returns one merchant's data" do
     merchant1 = create(:merchant)
 
     get "/api/v1/merchants/#{merchant1.id}"
@@ -47,5 +47,11 @@ RSpec.describe 'Merchants API' do
 
     expect(merchant).to_not have_key(:created_at)
     expect(merchant).to_not have_key(:updated_at)
+  end
+
+  it "returns 404 error if id is invalid" do
+    get '/api/v1/mercahnts/10000'
+
+    expect(response.status).to eq(404)
   end
 end
