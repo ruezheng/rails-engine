@@ -127,8 +127,8 @@ RSpec.describe 'Items API' do
     merchant = create(:merchant)
     item = create(:item, merchant_id: merchant.id)
 
-    previous_name = Item.last.name
-    item_params = { name: 'Nikon' }
+    previous_description = Item.last.description
+    item_params = { description: 'EOS 6D Mark III' }
 
     headers = {"CONTENT_TYPE" => "application/json"}
     patch "/api/v1/items/#{item.id}", headers: headers, params: JSON.generate(item: item_params)
@@ -136,8 +136,8 @@ RSpec.describe 'Items API' do
     item = Item.find_by(id: item.id)
 
     expect(response).to be_successful
-    expect(item.name).to eq(item_params[:name])
-    expect(item.name).to_not eq(previous_name)
+    expect(item.description).to eq(item_params[:description])
+    expect(item.description).to_not eq(previous_description)
   end
 
   it "deletes an item" do
